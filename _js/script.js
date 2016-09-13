@@ -1,112 +1,91 @@
-/*
-* Licensed to the Apache Software Foundation (ASF) under one
-* or more contributor license agreements.  See the NOTICE file
-* distributed with this work for additional information
-* regarding copyright ownership.  The ASF licenses this file
-* to you under the Apache License, Version 2.0 (the
-* "License"); you may not use this file except in compliance
-* with the License.  You may obtain a copy of the License at
-*
-* http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing,
-* software distributed under the License is distributed on an
-* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-* KIND, either express or implied.  See the License for the
-* specific language governing permissions and limitations
-* under the License.
-*/
-var app = {
-   // Application Constructor
-   initialize: function() {
-       this.bindEvents();
-   },
-   // Bind Event Listeners
-   //
-   // Bind any events that are required on startup. Common events are:
-   // 'load', 'deviceready', 'offline', and 'online'.
-   bindEvents: function() {
-       document.addEventListener('deviceready', this.onDeviceReady, false);
-   },
-   // deviceready Event Handler
-   //
-   // The scope of 'this' is the event. In order to call the 'receivedEvent'
-   // function, we must explicity call 'app.receivedEvent(...);'
-   onDeviceReady: function() {
-       app.receivedEvent('deviceready');
-   },
-   // Update DOM on a Received Event
-   receivedEvent: function(id) {
-       var parentElement = document.getElementById(id);
-       var listeningElement = parentElement.querySelector('.listening');
-       var receivedElement = parentElement.querySelector('.received');
+// yoda
 
-       listeningElement.setAttribute('style', 'display:none;');
-       receivedElement.setAttribute('style', 'display:block;');
+// $(".text_process").click(function(){
 
-       console.log('Received Event: ' + id);
+//     $.ajax({
+//         url: 'https://yoda.p.mashape.com/yoda?sentence=', // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
+//         type: 'GET', // The HTTP Method
+//         data: {sentence: $("#yoda_input").val()}, // Additional parameters here
+//         datatype: 'json',
+//         success: function (data) {
+//             $("#output").html(data);
+//         },
+//         error: function (err) {
+//             alert(err);
+//         },
+//         beforeSend: function (xhr) {
+//             xhr.setRequestHeader("X-Mashape-Key", "GDf6bxPUe5mshZkCs6PCt3qAPoYPp1CvcVDjsnxkdfZnkinAY6"); // Enter here your Mashape key
+//         }
+//     });
 
-       // start to initialize PayPalMobile library
-       app.initPaymentUI();
-   },
-   initPaymentUI : function () {
-     var clientIDs = {
-       "PayPalEnvironmentProduction": "YOUR_PRODUCTION_CLIENT_ID",
-       "PayPalEnvironmentSandbox": "YOUR_SANDBOX_CLIENT_ID"
-     };
-     PayPalMobile.init(clientIDs, app.onPayPalMobileInit);
+// });
 
-   },
-   onSuccesfulPayment : function(payment) {
-     console.log("payment success: " + JSON.stringify(payment, null, 4));
-   },
-   onAuthorizationCallback : function(authorization) {
-     console.log("authorization: " + JSON.stringify(authorization, null, 4));
-   },
-   createPayment : function () {
-     // for simplicity use predefined amount
-     // optional payment details for more information check [helper js file](https://github.com/paypal/PayPal-Cordova-Plugin/blob/master/www/paypal-mobile-js-helper.js)
-     var paymentDetails = new PayPalPaymentDetails("50.00", "0.00", "0.00");
-     var payment = new PayPalPayment("50.00", "USD", "Awesome Sauce", "Sale", paymentDetails);
-     return payment;
-   },
-   configuration : function () {
-     // for more options see `paypal-mobile-js-helper.js`
-     var config = new PayPalConfiguration({merchantName: "My test shop", merchantPrivacyPolicyURL: "https://mytestshop.com/policy", merchantUserAgreementURL: "https://mytestshop.com/agreement"});
-     return config;
-   },
-   onPrepareRender : function() {
-     // buttons defined in index.html
-     //  <button id="buyNowBtn"> Buy Now !</button>
-     //  <button id="buyInFutureBtn"> Pay in Future !</button>
-     //  <button id="profileSharingBtn"> ProfileSharing !</button>
-     var buyNowBtn = document.getElementById("buyNowBtn");
-     var buyInFutureBtn = document.getElementById("buyInFutureBtn");
-     var profileSharingBtn = document.getElementById("profileSharingBtn");
+// InstaTunes Pluggin:
 
-     buyNowBtn.onclick = function(e) {
-       // single payment
-       PayPalMobile.renderSinglePaymentUI(app.createPayment(), app.onSuccesfulPayment, app.onUserCanceled);
-     };
+$(".text_process").click(function(){
 
-     buyInFutureBtn.onclick = function(e) {
-       // future payment
-       PayPalMobile.renderFuturePaymentUI(app.onAuthorizationCallback, app.onUserCanceled);
-     };
+    $.ajax({
+        url: 'https://instatunes.p.mashape.com/search', // The URL to the API. You can get this by clicking on "Show CURL example" from an API profile
+        type: 'GET', // The HTTP Method
+        data: {sentence: $("#tunes_input").val()}, // Additional parameters here
+        datatype: 'json',
+        success: function (data) {
+            $("#output").html(data);
+        },
+        error: function (err) {
+            alert(err);
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("X-Mashape-Authorization", "GDf6bxPUe5mshZkCs6PCt3qAPoYPp1CvcVDjsnxkdfZnkinAY6"); // Enter here your Mashape key
+        }
+    });
 
-     profileSharingBtn.onclick = function(e) {
-       // profile sharing
-       PayPalMobile.renderProfileSharingUI(["profile", "email", "phone", "address", "futurepayments", "paypalattributes"], app.onAuthorizationCallback, app.onUserCanceled);
-     };
-   },
-   onPayPalMobileInit : function() {
-     // must be called
-     // use PayPalEnvironmentNoNetwork mode to get look and feel of the flow
-     PayPalMobile.prepareToRender("PayPalEnvironmentSandbox", app.configuration(), app.onPrepareRender);
-   },
-   onUserCanceled : function(result) {
-     console.log(result);
-   }
-};
+});
 
-app.initialize();
+// search bar
+
+ function sendToPage(){
+                var input = document.getElementById("search").value;
+                 //alert(input);
+                if (input == "moonshine stalkers"){
+                    location.href = "search.html";
+                    return false;
+                }
+                else if (input == "moonshine stalkers"){
+                    location.href = "search.html";
+                    return false;
+                }
+                else {
+                    alert('Invalid Input.');
+                }
+                    }
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('myImg');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
+
+// spotify Patel's code.
+// ----------------------------
+
+// var queryURL = "https://api.spotify.com/v1/search?q=" + artist + "&type=artist";
+//         $.ajax({url: queryURL, method: 'GET'}).done(function(response) {
+//             // Prints the entire object to console
+//             console.log(response);
+
